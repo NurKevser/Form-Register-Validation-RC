@@ -1,6 +1,7 @@
 import React from 'react'
 import '../App.css';
 import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 
 function SimpleRegister() {
@@ -14,7 +15,7 @@ function SimpleRegister() {
         onSubmit:values=>{
             console.log("values: ", values);
         },
-        validate: values => {
+        /* validate: values => {
             let errors={}
             if (!values.name){
                 errors.name="Required.Please fill this area"
@@ -29,7 +30,18 @@ function SimpleRegister() {
 
 
             return errors
-        }
+        } */
+        validationSchema:Yup.object({
+            name:Yup.string()
+            .max(15, "Must be 15 characters or less")
+            .required("Required. Enter name"),
+            userName:Yup.string()
+            .max(15, "Must be 15 characters or less")
+            .required("Required. Enter username"),
+            email:Yup.string()
+            .email("Invalid email address")
+            .required("Required.Enter email address")
+        })
       })
 
     //   console.log("formik: ", formik.values);
